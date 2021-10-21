@@ -56,7 +56,7 @@ public class Sheep : MonoBehaviour
     {
         if (isActive && me==type.Lead)
         {
-            Move();
+           // Move();
 
         }
         else if (isActive && (me==type.Contact || me == type.Follow))
@@ -85,7 +85,7 @@ public class Sheep : MonoBehaviour
         }
     }
 
-    private void Move()
+    public void Move()
     {
         cooldown += Time.deltaTime;
         if (cooldown >= 0.4f)
@@ -94,7 +94,7 @@ public class Sheep : MonoBehaviour
             transform.position += new Vector3(dir.x, dir.y, 0);
             //transform.position += new Vector3( dir.x, dir.y, 0)*Time.deltaTime*speed; déplacement smooth
             cooldown = 0;
-     //       Debug.Log(oldPos);
+            Debug.Log(oldPos);
         }
 
     }
@@ -149,19 +149,16 @@ public class Sheep : MonoBehaviour
         {
             Debug.Log(oldPos);
             Debug.Log(transform.position + "ed");
-          transform.position = oldPos;
+         // transform.position = oldPos;
           //transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0);
             ChangeDir(true);
             //stop les moutons suivants
         }
-        else if (collision.CompareTag("FenecCCW"))
-        {            Debug.Log(oldPos);
-            Debug.Log(transform.position + "ed");
-            transform.position = oldPos;
+        else if (collision.CompareTag("FenecCCW") && me==type.Lead)
+        {   
+            //transform.position = oldPos;
             //transform.position = new Vector3(Mathf.Round( transform.position.x), Mathf.Round(transform.position.y), 0);
-            Debug.Log(dir);
             ChangeDir(false);
-            Debug.Log(dir);
         }
         else if (collision.CompareTag("Sheep") && me==type.Lead)
         {
@@ -182,6 +179,7 @@ public class Sheep : MonoBehaviour
             }
             else if (other.me == Sheep.type.Contact || other.me == Sheep.type.Lead)
             {
+                SheepManager._instance.ShortCircuit(other.index);
                 Debug.Log("you ded you buffon");
             }
         }

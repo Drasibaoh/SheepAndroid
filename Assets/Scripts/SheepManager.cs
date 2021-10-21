@@ -6,12 +6,15 @@ using UnityEngine;
 public class SheepManager : MonoBehaviour
 {
     public static SheepManager _instance;
-    Sheep leadingSheep;
+    [SerializeField]Sheep leadingSheep;
     public List<Sheep> allSheep;
     bool isChanging;
     Vector2 direction;
     float cooldown;
     int a=1;
+    float time;
+    private bool dontmove;
+
     private void Awake()
     {
         if (_instance == null)
@@ -19,6 +22,25 @@ public class SheepManager : MonoBehaviour
             _instance = this;
         }
     }
+
+    internal void KillLead()
+    {
+        if (leadingSheep == allSheep[0] && allSheep.Count>=2)
+        {
+            leadingSheep = allSheep[1];
+            leadingSheep.ChangeType(0);
+            Destroy(allSheep[0].gameObject);
+            allSheep.RemoveAt(0);
+            
+        }
+        else
+        {
+            Debug.Log("game over");
+            Destroy(allSheep[0].gameObject);
+            allSheep.RemoveAt(0);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,12 +50,12 @@ public class SheepManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isChanging)
+        /*if (isChanging)
         {
             cooldown += Time.deltaTime;
             if (cooldown >= 0.4f)
             {
-                if (a > allSheep.Count)
+                if (a > allSheep.Count-1)
                 {
                     isChanging = false;
                     a = 1;
@@ -44,18 +66,33 @@ public class SheepManager : MonoBehaviour
                 a++;
 
             }
-        }
+        }*/
     }
     private void FixedUpdate()
     {
-        if (allSheep.Count > 2)
+        
+        if (allSheep.Count > 1)
         {
-            for (int i = allSheep.Count - 1; i > 0; i--)
+            time += Time.deltaTime;
+            if (time >= 0.4f)
             {
-                allSheep[i].transform.position = allSheep[i - 1].transform.position;
-                //allSheep[i].MoveFollower();
+                if (!dontmove)
+                    MoveF();
+                else
+                    dontmove = false;
+                time = 0;
             }
+            
         }
+        
+        leadingSheep.Move();
+    }
+    public void MoveF()
+    {            for (int i = allSheep.Count - 1; i > 0; i--)
+            {
+                   allSheep[i].transform.position = allSheep[i - 1].transform.position;
+            }
+        
     }
     public void AddSheep(Sheep other)
     {
@@ -69,7 +106,15 @@ public class SheepManager : MonoBehaviour
             allSheep[i].index = i;
         }
     }
-
+    public void ShortCircuit(int index)
+    {
+        for (int i = allSheep.Count -1; i >= index; i--)
+        {
+            Debug.Log(i + "détruit");
+            Destroy(allSheep[i].gameObject);
+            allSheep.RemoveAt(i);
+        }
+    } 
     internal void AddSheepAsLead(Sheep other)
     {
         leadingSheep = other;
@@ -93,6 +138,7 @@ public class SheepManager : MonoBehaviour
     {
         direction = dir;
         isChanging = true;
+        dontmove = true;
     }
     public Sheep GetNext(Sheep sheep)
     {
