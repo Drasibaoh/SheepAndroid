@@ -1495,7 +1495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821427736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.62, z: -10}
+  m_LocalPosition: {x: 1.74, y: 5.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3297,7 +3297,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108168519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.043, y: -5.051, z: 0.47}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3352,6 +3352,14 @@ PrefabInstance:
       propertyPath: grid
       value: 
       objectReference: {fileID: 2108168521}
+    - target: {fileID: 1631464993, guid: 260027b33ad03fb41b86ae877847475e, type: 3}
+      propertyPath: pFence
+      value: 
+      objectReference: {fileID: 1768411923017923301, guid: f2569310e878eb947b60b78da9b1d74d, type: 3}
+    - target: {fileID: 1631464993, guid: 260027b33ad03fb41b86ae877847475e, type: 3}
+      propertyPath: paFence
+      value: 
+      objectReference: {fileID: 1768411923017923301, guid: f2569310e878eb947b60b78da9b1d74d, type: 3}
     - target: {fileID: 1631464993, guid: 260027b33ad03fb41b86ae877847475e, type: 3}
       propertyPath: pointZero
       value: 

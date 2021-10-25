@@ -12,8 +12,7 @@ public class PlayerInput : MonoBehaviour
     bool click;
     Vector2 grid;
     Vector2 fenceNm;
-    [SerializeField] List<GameObject> fences;
-    [SerializeField] List<GameObject> inLvlFences;
+
     private void Awake()
     {
         input = new Controls();
@@ -51,16 +50,16 @@ public class PlayerInput : MonoBehaviour
     {
         if (click)
         {
-            LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint( pos));
+            LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint(pos), false);
             //ClickPos();
-            Debug.Log(Camera.main.ScreenToWorldPoint(pos).x + "x value");
+           // Debug.Log(Camera.main.ScreenToWorldPoint(pos).x + "x value");
             click = false;
-            Debug.Log("e");
-            Debug.Log(Camera.main.ScreenToWorldPoint(pos).y +"y value");
+           // Debug.Log("e");
+          //  Debug.Log(Camera.main.ScreenToWorldPoint(pos).y +"y value");
         }
         if (slash)
         {
-            ClickSPos();
+            LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint(pos), true);
         }
     }
 
@@ -75,7 +74,7 @@ public class PlayerInput : MonoBehaviour
                 if (pos.x > i * .98f+LevelManager._instance.pointZero.position.x && pos.x < (i + 1) * .98f  + LevelManager._instance.pointZero.position.x && pos.y > j * .98f + LevelManager._instance.pointZero.position.y && pos.y < (j + 1) * .98f + LevelManager._instance.pointZero.position.y)
                 {
                     Debug.Log("ee");
-                    SpawnASFence(LevelManager._instance.GetReversCase(new Vector3(i,j,0)));
+                    LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint(pos), false);
                 }
             }
         }
@@ -94,12 +93,12 @@ public class PlayerInput : MonoBehaviour
                 if (pos.x > i * .98f + LevelManager._instance.pointZero.position.x && pos.x < (i + 1) * .98f + LevelManager._instance.pointZero.position.x && pos.y > j * .98f + LevelManager._instance.pointZero.position.y && pos.y < (j + 1) * .98f + LevelManager._instance.pointZero.position.y)
                 {
                     Debug.Log("ee");
-                    SpawnSFence(new Vector2(i + LevelManager._instance.pointZero.position.x+.5f, j + LevelManager._instance.pointZero.position.y + .5f));
+                  //  SpawnSFence(new Vector2(i + LevelManager._instance.pointZero.position.x+.5f, j + LevelManager._instance.pointZero.position.y + .5f));
                 }
             }
         }
     }
-    void SpawnSFence(Vector2 posGrid)
+    /*void SpawnSFence(Vector2 posGrid)
     {
         Debug.Log("eee");
         if (fenceNm.x > 0)
@@ -125,7 +124,7 @@ public class PlayerInput : MonoBehaviour
             inLvlFences.RemoveAt(i);
         }
 
-    }
+    }*/
     void Drop(CallbackContext ctx)
     {
        click= ctx.ReadValueAsButton();
