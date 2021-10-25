@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &113988751625734187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 113988751625734186}
+  - component: {fileID: 113988751625734185}
+  - component: {fileID: 1631464993}
+  - component: {fileID: 1631464994}
+  m_Layer: 0
+  m_Name: SheepManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &113988751625734186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113988751625734187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.766204, y: 0.4248349, z: -3.59559}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &113988751625734185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113988751625734187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7658869ee92518640b2418323610293c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leadingSheep: {fileID: 0}
+  allSheep: []
+  portals:
+  - {fileID: 0}
+--- !u!114 &1631464993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113988751625734187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8f0dd86295d024197658345845ca1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheepToWin: 0
+  sheepToPerfect: 0
+  antiSlashFence: 2
+  slashFence: 2
+  startOver:
+    m_PersistentCalls:
+      m_Calls: []
+  playerPhase: 0
+  levelIndex: 0
+  pointZero: {fileID: 0}
+  grid: {fileID: 0}
+--- !u!114 &1631464994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113988751625734187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 354bc6349a4179746ab4143c579f8667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fences:
+  - {fileID: 1768411923017923301, guid: f2569310e878eb947b60b78da9b1d74d, type: 3}
+  - {fileID: 1768411923017923301, guid: f2569310e878eb947b60b78da9b1d74d, type: 3}
+  inLvlFences: []

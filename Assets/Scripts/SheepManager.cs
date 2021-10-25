@@ -8,10 +8,9 @@ public class SheepManager : MonoBehaviour
     public static SheepManager _instance;
     [SerializeField]Sheep leadingSheep;
     public List<Sheep> allSheep;
-    bool isChanging;
+    public List<PortalSwitch> portals;
+    int portCount;
     Vector2 direction;
-    float cooldown;
-    int a=1;
     float time;
     private bool dontmove;
 
@@ -28,7 +27,7 @@ public class SheepManager : MonoBehaviour
         if (leadingSheep == allSheep[0] && allSheep.Count>=2)
         {
             leadingSheep = allSheep[1];
-            leadingSheep.ChangeType(0);
+           leadingSheep.ChangeType(0);
             Destroy(allSheep[0].gameObject);
             allSheep.RemoveAt(0);
             
@@ -40,7 +39,7 @@ public class SheepManager : MonoBehaviour
             allSheep.RemoveAt(0);
         }
     }
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -70,23 +69,40 @@ public class SheepManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        
-        if (allSheep.Count > 1)
+        if (LevelManager._instance.GetPhase())
         {
-            time += Time.deltaTime;
-            if (time >= 0.4f)
+            if (allSheep.Count > 1 && LevelManager._instance.GetPhase())
             {
-                if (!dontmove)
-                    MoveF();
-                else
-                    dontmove = false;
-                time = 0;
+                time += Time.deltaTime;
+                if (time >= 0.4f)
+                {
+                    if (!dontmove)
+                    {
+                        MoveF();
+                        portCount++;
+                        PortalsSwitch();
+                    }
+                    else
+                        dontmove = false;
+                    time = 0;
+                }
+
             }
-            
+            leadingSheep.Move();
         }
-        
-        leadingSheep.Move();
     }
+
+    private void PortalsSwitch()
+    {
+        if (portCount > 1)
+        {
+        for (int i = 0; i < portals.Count; i++)
+            portals[i].switchPos();
+            portCount = 0;
+        }
+
+    }
+
     public void MoveF()
     {            for (int i = allSheep.Count - 1; i > 0; i--)
             {
@@ -137,7 +153,6 @@ public class SheepManager : MonoBehaviour
     public void ChangeDirection(Vector2 dir)
     {
         direction = dir;
-        isChanging = true;
         dontmove = true;
     }
     public Sheep GetNext(Sheep sheep)
