@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager _instance;
     [SerializeField] int sheepToWin; //percentage of sheep to win
     [SerializeField] int sheepToPerfect; //max number of sheep to enter
-    int sheepIn;
+    [SerializeField]int sheepIn;
     [SerializeField] int antiSlashFence;
     [SerializeField] int slashFence;
     public UnityEvent startOver;
@@ -21,6 +22,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject paFence;
     [SerializeField] List<GameObject> inLvlFences;
     [SerializeField] List<GameObject> inLvlAFences;
+    [SerializeField] GameObject win;
+    [SerializeField] GameObject perfect;
+
     private void Awake()
     {
         if (_instance == null)
@@ -80,7 +84,22 @@ public class LevelManager : MonoBehaviour
         }
 
     }
-
+    public void Restart()
+    {
+        for (int i = inLvlFences.Count; i > 0; i--)
+        {
+            Destroy(inLvlFences[i-1]);
+            inLvlFences.RemoveAt(i-1);
+            slashFence++;
+        }
+        for (int i = inLvlAFences.Count; i >0; i--)
+        {
+            Destroy(inLvlAFences[i-1]);
+            inLvlAFences.RemoveAt(i-1);
+            antiSlashFence++;
+        }
+        startOver.Invoke();
+    }
     public Vector3 GetReversCase(Vector3 worldPos)
     {
         Vector3 locPos = grid.TransformPoint(worldPos);
@@ -91,7 +110,14 @@ public class LevelManager : MonoBehaviour
     {
         return playerPhase;
     }
-
+    public void StartPhase()
+    {
+        playerPhase = true;
+    }
+    public void EndPhase()
+    {
+        playerPhase = false;
+    }
     public void SheepIsIn()
     {
         sheepIn++;
@@ -105,12 +131,12 @@ public class LevelManager : MonoBehaviour
     {
         if (sheepIn == sheepToPerfect)
         {
-            //victoire
+            perfect.SetActive(true);
             GameManager._instance.levelsStatus[levelIndex] = GameManager.levelStatus.Perfected;
         }
         else if (sheepIn*100/sheepToPerfect>= sheepToWin || GameManager._instance.levelsStatus[levelIndex] == GameManager.levelStatus.Perfected)
         {
-            //victoire
+            win.SetActive(true);
             GameManager._instance.levelsStatus[levelIndex] = GameManager.levelStatus.Done;
         }
     }

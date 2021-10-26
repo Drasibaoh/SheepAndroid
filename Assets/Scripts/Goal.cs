@@ -8,12 +8,8 @@ public class Goal : MonoBehaviour
     {
         if (collision.CompareTag("Sheep"))
         {
-            Sheep other = collision.GetComponent<Sheep>();
-            if (other.GetSType() == Sheep.Type.Lead)
-            {
-                LevelManager._instance.SheepIsIn();
-                SheepManager._instance.KillLead();
-            }
+            SheepManager._instance.KillLead();
+            LevelManager._instance.SheepIsIn();
         }
     }
 }
