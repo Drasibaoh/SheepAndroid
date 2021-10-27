@@ -18,18 +18,19 @@ public class Sheep : MonoBehaviour
     [SerializeField]bool isActive;
     [SerializeField] float speed;
     [SerializeField] Vector2 dir;
-    float cooldown;
+    public float cooldown;
     public int index;
     Vector3 oldPos;
     private void Awake()
+    {
+       
+    }
+    void Start()
     {
         if (me == Type.Lead)
         {
             SheepManager._instance.AddSheepAsLead(this);
         }
-    }
-    void Start()
-    {
         LevelManager._instance.startOver.AddListener(OnRestart);
         if (dir==Vector2.zero)
         dir = Vector2.right;
@@ -63,6 +64,7 @@ public class Sheep : MonoBehaviour
         Debug.Log(yo);
         dir=yo;
     }
+    
     // Update is called once per frame
     void Update()
     {

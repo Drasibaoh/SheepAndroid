@@ -18,12 +18,15 @@ public class PlayerInput : MonoBehaviour
         input = new Controls();
         input.Fence.Drop.started += Drop;
         input.Fence.Drop.canceled += Stop;
+        input.Fence.Antislash.started += Slash;
+        input.Fence.Drop.canceled += Stop;
         input.Fence.Newaction.performed += Mouse;
     }
 
     private void Stop(CallbackContext obj)
     {
         click=false;
+        slash = false;
     }
 
     private void OnEnable()
@@ -48,7 +51,9 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (click)
+        if (!LevelManager._instance.GetPhase())
+        {
+if (click)
         {
             LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint(pos), false);
             //ClickPos();
@@ -59,8 +64,11 @@ public class PlayerInput : MonoBehaviour
         }
         if (slash)
         {
+            slash = false;
             LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint(pos), true);
         }
+        }
+        
     }
 
     private void ClickSPos()
@@ -127,6 +135,10 @@ public class PlayerInput : MonoBehaviour
     }*/
     void Drop(CallbackContext ctx)
     {
-       click= ctx.ReadValueAsButton();
+        click = ctx.ReadValueAsButton();
+    }
+    void Slash(CallbackContext ctx)
+    {
+        slash = ctx.ReadValueAsButton();
     }
 }

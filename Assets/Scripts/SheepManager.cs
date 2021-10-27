@@ -10,7 +10,7 @@ public class SheepManager : MonoBehaviour
     public List<Sheep> allSheep;
     public List<PortalSwitch> portals;
     int portCount;
-    Vector2 direction;
+   [SerializeField] Vector2 direction;
     float time;
     private bool dontmove;
 
@@ -26,11 +26,15 @@ public class SheepManager : MonoBehaviour
     {
         if (leadingSheep == allSheep[0] && allSheep.Count>=2)
         {
+            allSheep[1].cooldown = allSheep[0].cooldown;
+            allSheep[1].SetDir(allSheep[0].GetDir());
             leadingSheep = allSheep[1];
            leadingSheep.ChangeType(0);
+            
+            leadingSheep.GetComponent<Collider2D>().isTrigger = false;
             Destroy(allSheep[0].gameObject);
             allSheep.RemoveAt(0);
-            
+            leadingSheep.Move();
         }
         else
         {
@@ -38,12 +42,6 @@ public class SheepManager : MonoBehaviour
             Destroy(allSheep[0].gameObject);
             allSheep.RemoveAt(0);
         }
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -152,6 +150,7 @@ public class SheepManager : MonoBehaviour
     }
     public void ChangeDirection(Vector2 dir)
     {
+        
         direction = dir;
         dontmove = true;
     }
