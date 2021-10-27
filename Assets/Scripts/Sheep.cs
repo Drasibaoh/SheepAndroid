@@ -22,6 +22,8 @@ public class Sheep : MonoBehaviour
     public float cooldown;
     public int index;
     Vector3 oldPos;
+    public bool canChange;
+    int waitFrame;
     private void Awake()
     {
         Debug.Log(transform.position);
@@ -69,7 +71,10 @@ public class Sheep : MonoBehaviour
     public void SetDir(Vector2 yo)
     {
         Debug.Log(yo);
-        dir=yo;
+        if (canChange)
+            dir = yo;
+        else
+            canChange = true;
     }
     
     // Update is called once per frame
@@ -83,6 +88,17 @@ public class Sheep : MonoBehaviour
         else if (isActive && (me==Type.Contact || me == Type.Follow))
         {
             //MoveFollower();
+        }
+        if (!canChange)
+        {
+            waitFrame++;
+            if (waitFrame <= 3)
+            {
+                return;
+                
+            }
+            waitFrame = 0;
+            canChange = true;
         }
     }
     public void Activate(bool b)
@@ -156,55 +172,59 @@ public class Sheep : MonoBehaviour
              SheepManager._instance.ChangeDirection(dir);
          }*/
         Debug.Log(dir+"oldDir");
-        if (fence.transform.rotation.z > 0.1f)
+        if (canChange)
         {
-            if (dir == new Vector2(0, 1) && cw)//
+            
+            if (fence.transform.rotation.z > 0.1f)
             {
-                dir = new Vector2(1, 0);
+                if (dir == new Vector2(0, 1) && cw)//
+                {
+                    dir = new Vector2(1, 0);
+                }
+                if (dir == new Vector2(0, -1) && cw)//
+                {
+                    dir = new Vector2(-1, 0);
+                }
+                else if (dir == new Vector2(0, 1) && !cw)//
+                {
+                    dir = new Vector2(-1, 0);
+                }
+                else if (dir == new Vector2(0, -1) && !cw)//
+                {
+                    dir = new Vector2(1, 0);
+                }
+                SheepManager._instance.ChangeDirection(dir);
             }
-            if (dir == new Vector2(0, -1) && cw)//
+            else
             {
-                dir = new Vector2(-1, 0);
+                if (dir == new Vector2(1, 0) && cw)//
+                {
+                    dir = new Vector2(0, -1);
+                }
+                else if (dir == new Vector2(-1, 0) && cw)
+                {
+                    dir = new Vector2(0, 1);
+                }
+                else if (dir == new Vector2(1, 0) && !cw)//
+                {
+                    dir = new Vector2(0, 1);
+                }
+                else if (dir == new Vector2(-1, 0) && !cw)//
+                {
+                    dir = new Vector2(0, -1);
+                }
             }
-            else if (dir == new Vector2(0, 1) && !cw)//
-            {
-                dir = new Vector2(-1, 0);
-            }
-            else if (dir == new Vector2(0, -1) && !cw)//
-            {
-                dir = new Vector2(1, 0);
-            }
-            SheepManager._instance.ChangeDirection(dir);
-        }
-        else
-        {
-            if (dir == new Vector2(1, 0) && cw)//
-            {
-                dir = new Vector2(0, -1);
-            }
-            else if (dir == new Vector2(-1, 0) && cw)
-            {
-                dir = new Vector2(0, 1);
-            }
-            else if (dir == new Vector2(1, 0) && !cw)//
-            {
-                dir = new Vector2(0, 1);
-            }
-            else if (dir == new Vector2(-1, 0) && !cw)//
-            {
-                dir = new Vector2(0, -1);
-            }
+            
 
             SheepManager._instance.ChangeDirection(dir);
         }
+        else
+         //   canChange = true;
         Debug.Log(dir + "NewDir");
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    void PlayAnim()
     {
-        if (collision.collider.CompareTag("Fence"))
-        {
-            Debug.Log("isSheep");
-        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -6,11 +6,12 @@ using UnityEngine;
 public class SheepManager : MonoBehaviour
 {
     public static SheepManager _instance;
-    [SerializeField]Sheep leadingSheep;
+    Sheep leadingSheep;
     public List<Sheep> allSheep;
     public List<PortalSwitch> portals;
     int portCount;
-   [SerializeField] Vector2 direction;
+    [SerializeField] List<Sheep> deadSheep;
+    [SerializeField] Vector2 direction;
     float time;
     private bool dontmove;
 
@@ -28,22 +29,29 @@ public class SheepManager : MonoBehaviour
     }
     internal void KillLead()
     {
-        if (leadingSheep == allSheep[0] && allSheep.Count>=2)
+        if (leadingSheep == allSheep[0] && allSheep.Count >= 2)
         {
+            Debug.Log(allSheep[1].GetDir());
+            allSheep[1].canChange = false;
             allSheep[1].cooldown = allSheep[0].cooldown;
             allSheep[1].SetDir(allSheep[0].GetDir());
+            Debug.Log(allSheep[1].GetDir());
             leadingSheep = allSheep[1];
-           leadingSheep.ChangeType(0);
-            
+            leadingSheep.ChangeType(0);
+
             leadingSheep.GetComponent<Collider2D>().isTrigger = false;
-            Destroy(allSheep[0].gameObject);
+            allSheep[0].gameObject.SetActive(false);
+            deadSheep.Add(allSheep[0]);
             allSheep.RemoveAt(0);
             leadingSheep.Move();
         }
         else
         {
             Debug.Log("game over");
-            Destroy(allSheep[0].gameObject);
+            //   Destroy(allSheep[0].gameObject);
+            allSheep[0].gameObject.SetActive(false);
+            deadSheep.Add(allSheep[0]);
+            allSheep.RemoveAt(0);
             allSheep.RemoveAt(0);
         }
     }
@@ -101,6 +109,14 @@ public class SheepManager : MonoBehaviour
             allSheep[i].OnRestart();
             allSheep[i].Activate(false);
             allSheep.RemoveAt(i);
+        }
+        for (int i = deadSheep.Count - 1; i > -1; i--)
+        {
+            deadSheep[i].gameObject.SetActive(true);
+            deadSheep[i].OnRestart();
+            deadSheep[i].Activate(false);
+            allSheep.RemoveAt(i);
+
         }
         allSheep[0].OnRestart();
     }

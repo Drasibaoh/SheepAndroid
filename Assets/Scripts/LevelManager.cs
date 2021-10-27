@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<GameObject> inLvlAFences;
     [SerializeField] GameObject win;
     [SerializeField] GameObject perfect;
+    [SerializeField] RectTransform fill;
     private void Awake()
     {
         if (_instance == null)
@@ -41,7 +42,10 @@ public class LevelManager : MonoBehaviour
         }
         startOver.AddListener(EndPhase);
     }
-
+    private void Update()
+    {
+        fill.localScale =new Vector3(1, 0.125f * sheepIn,1);
+    }
     public Vector2 GetCase(Vector3 worldPos, bool anti=false)
     {
         Debug.Log("Case : "+grid.InverseTransformPoint(worldPos));
@@ -68,7 +72,10 @@ public class LevelManager : MonoBehaviour
         {
             if (slashFence > 0)
             {
-
+               /* if ()
+                {
+                    inLvlAFences[]
+                }*/
                 GameObject newFence= Instantiate(pFence, new Vector3(pos.x, pos.y, 0), transform.rotation);
                 slashFence--;
                 inLvlFences.Add(newFence);
@@ -137,12 +144,13 @@ public class LevelManager : MonoBehaviour
     {
         if (sheepIn == sheepToPerfect)
         {
-            perfect.SetActive(true);
+            // perfect.SetActive(true);
+            win.SetActive(true);
             GameManager._instance.levelsStatus[levelIndex] = GameManager.levelStatus.Perfected;
         }
         else if (sheepIn*100/sheepToPerfect>= sheepToWin || GameManager._instance.levelsStatus[levelIndex] == GameManager.levelStatus.Perfected)
         {
-            win.SetActive(true);
+            //win.SetActive(true);
             GameManager._instance.levelsStatus[levelIndex] = GameManager.levelStatus.Done;
         }
     }
