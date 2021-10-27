@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Glitch : MonoBehaviour
 {
+    
     [SerializeField] int life=1;
     // Start is called before the first frame update
     void Start()

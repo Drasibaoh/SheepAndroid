@@ -24,7 +24,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<GameObject> inLvlAFences;
     [SerializeField] GameObject win;
     [SerializeField] GameObject perfect;
-
     private void Awake()
     {
         if (_instance == null)
@@ -40,6 +39,7 @@ public class LevelManager : MonoBehaviour
         {
             GameManager._instance.levelsStatus[levelIndex] = GameManager.levelStatus.Tried;
         }
+        startOver.AddListener(EndPhase);
     }
 
     public Vector2 GetCase(Vector3 worldPos, bool anti=false)
@@ -58,7 +58,10 @@ public class LevelManager : MonoBehaviour
         }
                 return Vector2.zero;
     }
-
+    public Vector2 GetFence() 
+    {
+        return new Vector2(slashFence, antiSlashFence);
+    }
     private void SpawnFence(Vector2 pos, bool anti)
     {
         if (!anti)
@@ -113,10 +116,13 @@ public class LevelManager : MonoBehaviour
     public void StartPhase()
     {
         playerPhase = true;
+        SheepManager._instance.allSheep[0].Activate(true);
+       // SheepManager._instance.CanMove(true);
     }
     public void EndPhase()
     {
         playerPhase = false;
+    //    SheepManager._instance.CanMove(false);
     }
     public void SheepIsIn()
     {
