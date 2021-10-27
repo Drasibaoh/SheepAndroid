@@ -24,6 +24,7 @@ public class Sheep : MonoBehaviour
     Vector3 oldPos;
     public bool canChange;
     int waitFrame;
+    [SerializeField] List<GameObject> anims;
     private void Awake()
     {
         Debug.Log(transform.position);
@@ -214,8 +215,8 @@ public class Sheep : MonoBehaviour
                     dir = new Vector2(0, -1);
                 }
             }
-            
 
+            PlayAnim();
             SheepManager._instance.ChangeDirection(dir);
         }
         else
@@ -224,7 +225,46 @@ public class Sheep : MonoBehaviour
     }
     void PlayAnim()
     {
-
+        if (dir == Vector2.up)
+        {
+            for (int i = 0; i < anims.Count; i++)
+            {
+                if (i != 0)
+                    anims[i].SetActive(false);
+                else
+                    anims[i].SetActive(true);
+            }
+        }
+        else if (dir == Vector2.down)
+        {
+            for (int i = 0; i < anims.Count; i++)
+            {
+                if (i != 1)
+                    anims[i].SetActive(false);
+                else
+                    anims[i].SetActive(true);
+            }
+        }
+        else if (dir == Vector2.right)
+        {
+            for (int i = 0; i < anims.Count; i++)
+            {
+                if (i != 2)
+                    anims[i].SetActive(false);
+                else
+                    anims[i].SetActive(true);
+            }
+        }
+        else if (dir == Vector2.left)
+        {
+            for (int i = 0; i < anims.Count; i++)
+            {
+                if (i != 3)
+                    anims[i].SetActive(false);
+                else
+                    anims[i].SetActive(true);
+            }
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

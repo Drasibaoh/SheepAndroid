@@ -15,10 +15,14 @@ public class TitleScript : MonoBehaviour
     {
       //  Application.Quit();
     }
+    public void ReturnToTitle()
+    {
+        SceneManager.LoadScene(0);
+    }
     public void LevelLoad()
     {
         if (screen.curr > -1) { }
-     //   SceneManager.LoadScene(screen.curr);
+      SceneManager.LoadScene(screen.curr);
     }
     public void SelectToTitle(bool inTitle)
     {
