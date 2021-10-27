@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
+using UnityEngine.UI;
 public class PlayerInput : MonoBehaviour
 {
     bool slash; 
@@ -12,7 +13,8 @@ public class PlayerInput : MonoBehaviour
     bool click;
     Vector2 grid;
     Vector2 fenceNm;
-
+    [SerializeField] Text antiFence;
+    [SerializeField] Text fence;
     private void Awake()
     {
         input = new Controls();
@@ -53,22 +55,23 @@ public class PlayerInput : MonoBehaviour
     {
         if (!LevelManager._instance.GetPhase())
         {
-if (click)
-        {
-            LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint(pos), false);
-            //ClickPos();
-           // Debug.Log(Camera.main.ScreenToWorldPoint(pos).x + "x value");
-            click = false;
-           // Debug.Log("e");
-          //  Debug.Log(Camera.main.ScreenToWorldPoint(pos).y +"y value");
+            if (click)
+            {
+                LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint(pos), false);
+                //ClickPos();
+                // Debug.Log(Camera.main.ScreenToWorldPoint(pos).x + "x value");
+                click = false;
+                // Debug.Log("e");
+                //  Debug.Log(Camera.main.ScreenToWorldPoint(pos).y +"y value");
+            }
+            if (slash)
+            {
+                slash = false;
+                LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint(pos), true);
+            }
         }
-        if (slash)
-        {
-            slash = false;
-            LevelManager._instance.GetCase(Camera.main.ScreenToWorldPoint(pos), true);
-        }
-        }
-        
+        fence.text = "X " + LevelManager._instance.GetFence().x;
+        antiFence.text = "X " + LevelManager._instance.GetFence().y;
     }
 
     private void ClickSPos()

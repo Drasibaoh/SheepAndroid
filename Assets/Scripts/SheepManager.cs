@@ -21,7 +21,11 @@ public class SheepManager : MonoBehaviour
             _instance = this;
         }
     }
-
+    private void Start()
+    {
+        
+        LevelManager._instance.startOver.AddListener(Restart);
+    }
     internal void KillLead()
     {
         if (leadingSheep == allSheep[0] && allSheep.Count>=2)
@@ -69,7 +73,7 @@ public class SheepManager : MonoBehaviour
     {
         if (LevelManager._instance.GetPhase())
         {
-            if (allSheep.Count > 1 && LevelManager._instance.GetPhase())
+            if (allSheep.Count > 1 )
             {
                 time += Time.deltaTime;
                 if (time >= 0.4f)
@@ -90,6 +94,16 @@ public class SheepManager : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+        for (int i = allSheep.Count-1; i >0; i--)
+        {
+            allSheep[i].OnRestart();
+            allSheep[i].Activate(false);
+            allSheep.RemoveAt(i);
+        }
+        allSheep[0].OnRestart();
+    }
     private void PortalsSwitch()
     {
         if (portCount > 1)
@@ -102,11 +116,11 @@ public class SheepManager : MonoBehaviour
     }
 
     public void MoveF()
-    {            for (int i = allSheep.Count - 1; i > 0; i--)
-            {
-                   allSheep[i].transform.position = allSheep[i - 1].transform.position;
-            }
-        
+    {
+        for (int i = allSheep.Count-1; i > 0; i--)
+        {
+            allSheep[i].transform.position = allSheep[i - 1].transform.position;
+        }
     }
     public void AddSheep(Sheep other)
     {
@@ -150,9 +164,8 @@ public class SheepManager : MonoBehaviour
     }
     public void ChangeDirection(Vector2 dir)
     {
-        
         direction = dir;
-        dontmove = true;
+      //  dontmove = true;
     }
     public Sheep GetNext(Sheep sheep)
     {
@@ -161,5 +174,9 @@ public class SheepManager : MonoBehaviour
             return (allSheep[sheep.index + 1]);
         }
         return null;
+    }
+    public void CanMove(bool doesIt)
+    {
+        dontmove = !doesIt;
     }
 }

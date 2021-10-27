@@ -12,8 +12,9 @@ public class Sheep : MonoBehaviour
         Contact,
         Free
     }
-    Transform initTransform;
-    Sheep initSheep;
+    Vector3 initTransform;
+    Type initSheep;
+    Vector2 initDir;
     [SerializeField]Type me;
     [SerializeField]bool isActive;
     [SerializeField] float speed;
@@ -23,15 +24,20 @@ public class Sheep : MonoBehaviour
     Vector3 oldPos;
     private void Awake()
     {
-       
+        Debug.Log(transform.position);
+        initDir = dir;
+        initTransform = transform.position;
+        Debug.Log(initTransform);
+        initSheep = me;
     }
     void Start()
     {
+        LevelManager._instance.startOver.AddListener(OnRestart);
         if (me == Type.Lead)
         {
             SheepManager._instance.AddSheepAsLead(this);
         }
-        LevelManager._instance.startOver.AddListener(OnRestart);
+
         if (dir==Vector2.zero)
         dir = Vector2.right;
 
@@ -43,17 +49,18 @@ public class Sheep : MonoBehaviour
         {
             SheepManager._instance.AddSheep(this);
         }
-        initTransform = transform;
-        initSheep = this;
+
        
     }
     public void OnRestart()
     {
-        me = initSheep.me;
-        dir = initSheep.dir;
-        gameObject.transform.position = initTransform.position;
-        gameObject.transform.rotation = initTransform.rotation;
-        gameObject.transform.localScale = initTransform.localScale;
+
+        gameObject.transform.position = initTransform;
+        dir = initDir;
+        me = initSheep;
+        
+        if (me==Type.Lead)
+            isActive = false;
     }
     public Vector2 GetDir()
     {
@@ -78,7 +85,11 @@ public class Sheep : MonoBehaviour
             //MoveFollower();
         }
     }
-
+    public void Activate(bool b)
+    {
+        isActive = b;
+        
+    }
     public void MoveFollower()
     {
         cooldown += Time.deltaTime;
@@ -96,7 +107,8 @@ public class Sheep : MonoBehaviour
 
     public void Move()
     {
-        cooldown += Time.deltaTime;
+        if (isActive)
+            cooldown += Time.deltaTime;
         if (cooldown >= 0.4f)
         {
             oldPos = transform.position;
