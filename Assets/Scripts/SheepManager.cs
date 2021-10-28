@@ -31,6 +31,7 @@ public class SheepManager : MonoBehaviour
     {
         if (leadingSheep == allSheep[0] && allSheep.Count >= 2)
         {
+            CanMove(false);
             Debug.Log(allSheep[1].GetDir());
             allSheep[1].canChange = false;
             allSheep[1].cooldown = allSheep[0].cooldown;
@@ -44,6 +45,7 @@ public class SheepManager : MonoBehaviour
             deadSheep.Add(allSheep[0]);
             Debug.Log("tu fous quoi ?");
             allSheep.RemoveAt(0);
+            CanMove(true);
             leadingSheep.Move();
         }
         else
