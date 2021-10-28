@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     public UnityEvent startOver;
     [SerializeField] bool playerPhase;
     [SerializeField] int levelIndex;
-    Vector2 gridSize=new Vector2(12,10);
+    [SerializeField]Vector2 gridSize=new Vector2(12,10);
     public Transform pointZero;
     [SerializeField] Transform grid;
     [SerializeField] GameObject pFence;
@@ -144,13 +144,13 @@ public class LevelManager : MonoBehaviour
     {
         if (sheepIn == sheepToPerfect)
         {
-            // perfect.SetActive(true);
-            win.SetActive(true);
+             perfect.SetActive(true);
+            
             GameManager._instance.levelsStatus[levelIndex] = GameManager.levelStatus.Perfected;
         }
         else if (sheepIn*100/sheepToPerfect>= sheepToWin || GameManager._instance.levelsStatus[levelIndex] == GameManager.levelStatus.Perfected)
         {
-            //win.SetActive(true);
+            win.SetActive(true);
             GameManager._instance.levelsStatus[levelIndex] = GameManager.levelStatus.Done;
         }
     }
