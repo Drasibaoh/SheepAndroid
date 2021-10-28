@@ -6,7 +6,7 @@ using UnityEngine;
 public class SheepManager : MonoBehaviour
 {
     public static SheepManager _instance;
-    Sheep leadingSheep;
+   [SerializeField] Sheep leadingSheep;
     public List<Sheep> allSheep;
     public List<PortalSwitch> portals;
     int portCount;
@@ -42,6 +42,7 @@ public class SheepManager : MonoBehaviour
             leadingSheep.GetComponent<Collider2D>().isTrigger = false;
             allSheep[0].gameObject.SetActive(false);
             deadSheep.Add(allSheep[0]);
+            Debug.Log("tu fous quoi ?");
             allSheep.RemoveAt(0);
             leadingSheep.Move();
         }
@@ -51,7 +52,7 @@ public class SheepManager : MonoBehaviour
             //   Destroy(allSheep[0].gameObject);
             allSheep[0].gameObject.SetActive(false);
             deadSheep.Add(allSheep[0]);
-            allSheep.RemoveAt(0);
+            //allSheep.RemoveAt(0);
         }
     }
 
@@ -121,6 +122,8 @@ public class SheepManager : MonoBehaviour
             allSheep[i].Activate(false);
             allSheep.RemoveAt(i);
         }
+        allSheep[0].OnRestart();
+
         for (int i = deadSheep.Count - 1; i > -1; i--)
         {
             deadSheep[i].gameObject.SetActive(true);
@@ -129,7 +132,7 @@ public class SheepManager : MonoBehaviour
             allSheep.RemoveAt(i);
 
         }
-        allSheep[0].OnRestart();
+        allSheep.Add(leadingSheep);
     }
     private void PortalsSwitch()
     {

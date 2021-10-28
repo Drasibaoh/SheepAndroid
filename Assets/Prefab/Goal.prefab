@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18903ea65609ba14dab0fa309c8d4daa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animtime: 0.28
 --- !u!1 &8774838346172640487
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdce78c210fb65479434a72d9857b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effect: {fileID: 7742525183657961433}
 --- !u!58 &8774838346172640484
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -872,6 +872,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1978722180860886315, guid: c948b34ce6c3df24e9c6b7ed5296ca13, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1978722180860886358, guid: c948b34ce6c3df24e9c6b7ed5296ca13, type: 3}
       propertyPath: m_Name
       value: Sheep
@@ -7037,6 +7041,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1978722180860886315, guid: c948b34ce6c3df24e9c6b7ed5296ca13, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1978722180860886358, guid: c948b34ce6c3df24e9c6b7ed5296ca13, type: 3}
       propertyPath: m_Name
       value: Sheep (2)
@@ -11294,6 +11302,10 @@ PrefabInstance:
     - target: {fileID: 1978722180860886313, guid: c948b34ce6c3df24e9c6b7ed5296ca13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978722180860886315, guid: c948b34ce6c3df24e9c6b7ed5296ca13, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1978722180860886358, guid: c948b34ce6c3df24e9c6b7ed5296ca13, type: 3}
       propertyPath: m_Name

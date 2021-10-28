@@ -7,13 +7,16 @@ public class TitleScript : MonoBehaviour
     Preview screen;
     [SerializeField] GameObject title;
     [SerializeField] GameObject lvlSelect;
+    [SerializeField] GameObject ld;
+    [SerializeField] GameObject story;
+    [SerializeField] GameObject controls;
     private void Start()
     {
         screen = GetComponent<Preview>();
     }
     public void Quit()
     {
-      //  Application.Quit();
+        Application.Quit();
     }
     public void ReturnToTitle()
     {
@@ -28,6 +31,20 @@ public class TitleScript : MonoBehaviour
     {
         title.SetActive(!inTitle);
         lvlSelect.SetActive(inTitle);
+    }
+    public void SeeStory(bool b)
+    {
+        controls.SetActive(false);
+        title.SetActive(b);
+        story.SetActive(b);
+        lvlSelect.SetActive(!b);
+    }
+    public void SeeControls(bool b)
+    {
+        controls.SetActive(b);
+        title.SetActive(b);
+        story.SetActive(false) ;
+        lvlSelect.SetActive(!b);
     }
 
 }
