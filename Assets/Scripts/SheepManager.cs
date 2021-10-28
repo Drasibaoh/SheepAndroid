@@ -14,7 +14,7 @@ public class SheepManager : MonoBehaviour
     [SerializeField] Vector2 direction;
     float time;
     private bool dontmove;
-
+    int upIndex;
     private void Awake()
     {
         if (_instance == null)
@@ -88,6 +88,7 @@ public class SheepManager : MonoBehaviour
                     if (!dontmove)
                     {
                         MoveF();
+                        DirectionUpdate();
                         portCount++;
                         PortalsSwitch();
                     }
@@ -100,7 +101,18 @@ public class SheepManager : MonoBehaviour
             leadingSheep.Move();
         }
     }
-
+    void DirectionUpdate()
+    {
+        upIndex++;
+        if (upIndex > allSheep.Count - 1)
+        {
+            upIndex = 1;
+        }
+        Debug.Log("to");
+        allSheep[upIndex].SetDir(leadingSheep.GetDir());
+        allSheep[upIndex].PlayAnim();
+        Debug.Log("nope");
+    }
     public void Restart()
     {
         for (int i = allSheep.Count-1; i >0; i--)

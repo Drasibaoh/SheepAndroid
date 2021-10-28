@@ -223,8 +223,9 @@ public class Sheep : MonoBehaviour
          //   canChange = true;
         Debug.Log(dir + "NewDir");
     }
-    void PlayAnim()
+    public void PlayAnim()
     {
+        Debug.Log("eee");
         if (dir == Vector2.up)
         {
             for (int i = 0; i < anims.Count; i++)
@@ -237,12 +238,17 @@ public class Sheep : MonoBehaviour
         }
         else if (dir == Vector2.down)
         {
+            Debug.Log("eeee");
             for (int i = 0; i < anims.Count; i++)
             {
                 if (i != 1)
                     anims[i].SetActive(false);
                 else
-                    anims[i].SetActive(true);
+                {
+anims[i].SetActive(true);
+                    Debug.Log("eeeee");
+                }
+                    
             }
         }
         else if (dir == Vector2.right)
