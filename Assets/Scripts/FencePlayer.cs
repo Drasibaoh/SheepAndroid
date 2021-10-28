@@ -60,6 +60,7 @@ public class FencePlayer : MonoBehaviour
                     player.SetDir(Vector2.up);
                 }
             }
+            player.PlayAnim();
         }
     }
 }
