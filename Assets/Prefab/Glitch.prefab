@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4123855716770271092}
   - component: {fileID: 8424283556613440099}
   - component: {fileID: 9126639914898661487}
+  - component: {fileID: 432161120}
   m_Layer: 0
   m_Name: Lightning_0 (1)
   m_TagString: Untagged
@@ -93,7 +94,7 @@ Animator:
   m_GameObject: {fileID: 1731204552980219064}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2d91bb3306025ed4592aeafbd0df0765, type: 2}
+  m_Controller: {fileID: 9100000, guid: 43a1d899e16d20247a242c156162bde1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -102,6 +103,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &432161120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731204552980219064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18903ea65609ba14dab0fa309c8d4daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animtime: 0
 --- !u!1 &7671589334887036079
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288b340d08524d34f8bfffd8f3b3f2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 2
+  life: 1
   effect: {fileID: 1731204552980219064}
 --- !u!61 &6547684219201832141
 BoxCollider2D:
