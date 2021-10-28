@@ -6,6 +6,7 @@ public class Glitch : MonoBehaviour
 {
     
     [SerializeField] int life=1;
+    [SerializeField] GameObject effect;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +22,20 @@ public class Glitch : MonoBehaviour
     {
         if (collision.CompareTag("Sheep"))
         {
-            SheepManager._instance.KillLead();
+            Death();
+        }
+    }    
+    void Death()
+    {
+
+           
             life--;
             if (life == 0)
             {
-                Destroy(gameObject);
+                effect.SetActive(true);
+                gameObject.SetActive(false);
             }
-        }
+        SheepManager._instance.KillLead();
+        
     }
 }
