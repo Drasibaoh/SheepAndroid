@@ -52,7 +52,6 @@ public class SheepManager : MonoBehaviour
             allSheep[0].gameObject.SetActive(false);
             deadSheep.Add(allSheep[0]);
             allSheep.RemoveAt(0);
-            allSheep.RemoveAt(0);
         }
     }
 
